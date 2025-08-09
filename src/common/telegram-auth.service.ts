@@ -15,8 +15,8 @@ export class TelegramAuthService {
     const hash = params.get('hash');
     params.delete('hash');
 
-    const dataCheckString = Array.from(params.entries())
-      .map(([key, val]) => `${key}=${val}`)
+    const dataCheckString = [...params.entries()]
+      .map(([key, value]) => `${key}=${value}`)
       .sort()
       .join('\n');
 
@@ -29,6 +29,7 @@ export class TelegramAuthService {
     const userJson = params.get('user');
     if (!userJson) throw new UnauthorizedException('User maʼlumotlari yo‘q');
 
-    return JSON.parse(userJson); // { id, first_name, last_name?, username?, ... }
+    return JSON.parse(userJson); // { id, first_name, ... }
   }
 }
+
